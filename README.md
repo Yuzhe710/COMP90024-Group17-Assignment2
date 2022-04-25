@@ -5,7 +5,7 @@
 * [Kechen Zhao - 957398](https://github.com/miniabby)
 * [Yuzhe Jie - 1189869](https://github.com/Yuzhe710)
 * [Qingyang Feng - 980940](https://github.com/claire-ef)
-* [Wentian Ding - 1048673]()
+* [Wentian Ding - 1048673](https://github.com/dinggggggg)
 
 ## Goal of this Project
 Harvest tweets data from Melbourne, Australia, and analyse people's attitude towards house pricing related to "balabala".
