@@ -2,7 +2,7 @@
 
 ## Team Members
 * [Xunye Tian - 1021181](https://github.com/yeager20001118)
-* [Student2 - ]()
+* [Kechen Zhao - 957398](https://github.com/miniabby)
 * [Student3 - ]()
 * [Student4 - ]()
 * [Student5 - ]()
