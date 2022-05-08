@@ -1,10 +1,19 @@
+from cgitb import text
+import json
+from venv import create
 from tweepy import StreamingClient, StreamRule, Tweet
 import csv
 
-save_file = open('Twitter.csv', 'w')
-writer = csv.writer(save_file)
-header = ['id', 'text', 'geolocation', 'language', 'time']
-writer.writerow(header)
+
+
+
+MEL_COR = [144.33363404800002, -38.50298801599996, 145.8784120140001, -37.17509899299995]
+MIN_LON = MEL_COR[0]
+MAX_LON = MEL_COR[2]
+MIN_LAT = MEL_COR[1]
+MAX_LAT = MEL_COR[3]
+
+results = []
 
 class TweetListener(StreamingClient):
     """
@@ -12,43 +21,72 @@ class TweetListener(StreamingClient):
     https://docs.tweepy.org/en/latest/streamingclient.html#tweepy.StreamingClient
     """
 
-    def on_data(self, data):
-        global count
-        global ttend
-        # print(status)
-        text = data.text
-        # username = status.user.screen_name
-        id_str = data.id_str
-        createtime = str(data.created_at)
-        # source = status.source
-        # userlocation = status.user.location
-        lang = data.lang
-        retweeted = data.retweeted
-        # placename = status.place.name
-        geo = data.geo
-        # blob = TextBlob(text)
-        # sent = blob.sentiment
-        # polarity = sent.polarity
-        # subjectivity = sent.subjectivity
-        if retweeted == False:
-            data = [id_str, text, geo, lang, createtime]
-            writer.writerow(data)
-            # db.save({"id": id_str,"createtime":createtime,"source":source ,"text": text, "username": username,"userlocation":userlocation,"lang": lang, "placename": placename, "geo": geo,
-            #         "polarity": polarity, "subjectivity": subjectivity})
-            count += 1
-            print(count)
-        else:
-            pass
+    # def on_data(self, data):
+    #     global count
+    #     global ttend
+    #     # print(status)
+    #     text = data.text
+    #     # username = status.user.screen_name
+    #     id_str = data.id_str
+    #     createtime = str(data.created_at)
+    #     # source = status.source
+    #     # userlocation = status.user.location
+    #     lang = data.lang
+    #     retweeted = data.retweeted
+    #     # placename = status.place.name
+    #     geo = data.geo
+    #     # blob = TextBlob(text)
+    #     # sent = blob.sentiment
+    #     # polarity = sent.polarity
+    #     # subjectivity = sent.subjectivity
+    #     if retweeted == False:
+    #         data = [id_str, text, geo, lang, createtime]
+    #         writer.writerow(data)
+    #         # db.save({"id": id_str,"createtime":createtime,"source":source ,"text": text, "username": username,"userlocation":userlocation,"lang": lang, "placename": placename, "geo": geo,
+    #         #         "polarity": polarity, "subjectivity": subjectivity})
+    #         count += 1
+    #         print(count)
+    #     else:
+    #         pass
 
     def on_tweet(self, tweet: Tweet):
-        print(tweet.__repr__())
+        #print(tweet.__repr__())
+        data = {}
+        data['id'] = tweet.id
+        data['text'] = tweet.text
+        data['time'] = str(tweet.created_at)
+        results.append(data)
+        # writer.writerow(row)
+        # id = tweet.id
+        # text = tweet.text
+        # create_time = tweet.created_at
+        # geo = tweet.data['geo']
+        # if geo:
+        #     for k in geo.keys():
+        #         print(k)
+        #     print("===============================")
+        #     # if geo['coordinates']:
+        #     #     if geo['coordinates']['type']:
+        #     #         if geo['coordinates']['type'] == 'Point':
+        #     #             if geo['coordinates']['coordinates']:
+        #     #                 lon = geo['coordinates']['coordinates'][0]
+        #     #                 lat = geo['coordinates']['coordinates'][1]
+        #     #                 if lon <= MAX_LON and lon >= MIN_LON and lat <= MAX_LAT and lat >= MIN_LAT:
+        #     #                     row = [id, text, create_time, [lon,lat]]
+        #     #                     writer.writerow(row)
+
+        print(tweet.meta)
 
 
     def on_request_error(self, status_code):
+        # save_file.close()
         print(status_code)
+        
 
     def on_connection_error(self):
+        # save_file.close()
         self.disconnect()
+        
 
 
 if __name__ == "__main__":
@@ -59,6 +97,8 @@ if __name__ == "__main__":
      - DO NOT store it in public places or shared docs
     """
     bearer_token = "AAAAAAAAAAAAAAAAAAAAAJtBcAEAAAAA3df5WVxmsRRRqYQQuwUcxuJMRzU%3DqYTQmXuAG4nXJQa96vxwmHI7cWDdDQ7Ge7QsGB1sdeO9rCgBGB"
+    # bearer_token = 'AAAAAAAAAAAAAAAAAAAAAPhScQEAAAAAIkkBCK%2FFoYZzUi4CeDGk8vtPEhQ%3DwQp9tgr6SJtnUVowxrtHmXtBScJCnTRiCyDboPBFuSoAMEy1JM'
+
 
     if not bearer_token:
         raise RuntimeError("Not found bearer token")
@@ -74,7 +114,6 @@ if __name__ == "__main__":
     #   - "melbourne"
     rules = [
         StreamRule(value="house")
-
     ]
 
     # https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/post-tweets-search-stream-rules
@@ -102,6 +141,15 @@ if __name__ == "__main__":
 
     # https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/get-tweets-search-stream
     try:
-        client.filter()
+        client.filter(tweet_fields=['lang', 'created_at', 'geo'], place_fields=['place_type', 'geo'], expansions='geo.place_id')
+    
+        
     except KeyboardInterrupt:
         client.disconnect()
+    # finally:
+        # save_file = open('Twitter.json', 'w')
+
+        # json.dump(results, save_file)
+        
+        # save_file.close()
+        
