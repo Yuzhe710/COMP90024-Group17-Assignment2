@@ -1,5 +1,7 @@
 [all]
-{{ groups.all }}
+{% for ip in groups %}
+  {{ip}}
+{% endfor %}
 
 [masternode]
 {{ groups.all[0] }}
