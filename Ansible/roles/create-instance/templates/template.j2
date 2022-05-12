@@ -1,0 +1,16 @@
+[all]
+{{ groups.all }}
+
+[masternode]
+{{ groups.all[0] }}
+
+[othernode]
+{{ groups.all[1] }}
+{{ groups.all[2] }}
+{{ groups.all[3] }}
+
+[harvest]
+{{ groups.all[1] }}
+
+[flask]
+{{ groups.all[2] }}
