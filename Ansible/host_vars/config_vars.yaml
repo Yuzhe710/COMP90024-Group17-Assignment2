@@ -15,37 +15,59 @@ availability_zone: melbourne-qh2-uom
 instance_image: 356ff1ed-5960-4ac2-96a1-0c0198e6a999
 instance_key_name: demo
 
+# couchdb vars
+couchdb_image: ibmcom/couchdb3:3.2.1
+couchdb_user: admin
+couchdb_password: admin
+couchdb_cookie: 'a192aeb9904e6590849337933b000c99'
+couchdb_port: 5984
 
 # Volume
 volumes:
-  - vol_name: demo-vol-3-1
-    vol_size: 10
-  - vol_name: demo-vol-3-2
-    vol_size: 10
-#   - vol_name: demo-vol-2-1
+  - vol_name: instance-1-vol
+    vol_size: 100
+#   - vol_name: instance-2-vol
 #     vol_size: 10
-#   - vol_name: demo-vol-2-2
+#   - vol_name: instance-3-vol
 #     vol_size: 10
 
 # Security group
 security_groups:
-  - name: demo_ssh
-    description: "Demo security group for SSH access"
+  - name: inst_ssh
+    description: "Instance security group for SSH access"
     protocol: tcp
     port_range_min: 22
     port_range_max: 22
     remote_ip_prefix: 0.0.0.0/0
-  - name: demo_http
-    description: "Demo security group for HTTP"
+  - name: inst_http
+    description: "Instance security group for HTTP"
     protocol: tcp
     port_range_min: 80
     port_range_max: 80
     remote_ip_prefix: 0.0.0.0/0
+  - name: inst_couchdb
+    description: "Security group for CouchDB access"
+    protocol: tcp
+    port_range_min: 5984
+    port_range_max: 5984
+    remote_ip_prefix: 0.0.0.0/0
+  - name: inst_erlang
+    description: "Security group for CouchDB clustered nodes speak to each other"
+    protocol: tcp
+    port_range_min: 4369
+    port_range_max: 4369
+    remote_ip_prefix: 0.0.0.0/0
+  - name: inst_erlang_app
+    description: "Security group to force an Erlang application to use specific port range"
+    protocol: tcp
+    port_range_min: 9100
+    port_range_max: 9200
+    remote_ip_prefix: 0.0.0.0/0
 
 # Instance
 instances:
-  - name: demo3
-    instance_flavor: uom.mse.2c9g
-    volumes: ['demo-vol-3-1', 'demo-vol-3-2']
-  # - name: demo-2
-  #   volumes: ['demo-vol-2-1', 'demo-vol-2-2']
+  - name: instance-1
+    instance_flavor: uom.mse.1c4g
+    volumes: ['instance-1-vol']
+  # - name: instance-2
+  #   volumes: []
