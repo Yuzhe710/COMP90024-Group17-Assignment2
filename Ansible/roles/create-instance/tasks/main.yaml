@@ -54,4 +54,4 @@
 - name: Template hosts into inventory
   ansible.builtin.template:
     src: ./roles/create-instance/templates/template.j2
-    dest: ./inventory/hosts
+    dest: ./inventory/inventory.ini
