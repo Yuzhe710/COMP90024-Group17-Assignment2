@@ -11,7 +11,7 @@
     - role: create-instance
     # - role: openstack-volume-snapshot
 
-- host: all 
+- hosts: all 
   vars_files:
     - host_vars/config_vars.yaml
   gather_facts: true
