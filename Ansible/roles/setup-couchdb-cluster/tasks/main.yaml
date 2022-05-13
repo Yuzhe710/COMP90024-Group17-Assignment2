@@ -35,7 +35,7 @@
   become: yes
   uri:
     url: http://{{ groups.masternode[0] }}:5984/_cluster_setup
-    status_code: 201
+    status_code: 201, 409
     method: POST
     user: "{{ couchdb_user }}"
     password:  "{{ couchdb_password }}"
