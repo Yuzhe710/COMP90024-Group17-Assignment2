@@ -38,7 +38,6 @@
 #     curl -XPOST "http://{{ couchdb_user }}:{{ couchdb_password }}@{{ groups.masternode[0] }}:5984/_cluster_setup"\
 #     --header "Content-Type: application/json" --data "{\"action\": \"finish_cluster\"}"
 
----
 - name: setup cluster
   become: yes
   uri:
