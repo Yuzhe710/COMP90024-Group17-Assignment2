@@ -24,6 +24,7 @@
     name: "couchdb{{ ansible_host }}"
     image: "{{ couchdb_image }}"
     state: started
+    restart: yes
     ports: 
       - 5984:5984
       - 4369:4369
