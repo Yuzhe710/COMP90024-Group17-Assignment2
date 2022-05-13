@@ -26,6 +26,8 @@ couchdb_port: 5984
 volumes:
   - vol_name: instance-1-vol
     vol_size: 100
+    device: /dev/vdb
+    mountpoint: /data
 #   - vol_name: instance-2-vol
 #     vol_size: 10
 #   - vol_name: instance-3-vol

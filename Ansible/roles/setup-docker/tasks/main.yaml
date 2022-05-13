@@ -6,8 +6,9 @@
 # Yuzhe Jie 1189869
 # Qingyang Feng 980940
 # Wentian Ding 1048673
-# Last Updated: 2022-05-12
+# Last Updated: 2022-05-14
 # Description: include a list of all tasks to setup docker
 # ====================================
 
 - include_tasks: common.yaml
+- include_tasks: volume.yaml
