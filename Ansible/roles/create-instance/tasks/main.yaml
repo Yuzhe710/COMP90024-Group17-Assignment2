@@ -52,6 +52,7 @@
 
 # template groups of hosts out to a target Inventory
 - name: Template hosts into inventory
+  become: yes
   ansible.builtin.template:
     src: ./roles/create-instance/templates/template.j2
     dest: ./inventory/hosts
