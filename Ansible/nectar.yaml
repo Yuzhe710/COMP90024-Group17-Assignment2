@@ -36,14 +36,14 @@
     - role: setup-docker
     - role: setup-couchdb
 
-- hosts: masternode
-  vars_files:
-    - host_vars/config_vars.yaml
-  gather_facts: true
-  vars:
-    - ansible_user: ubuntu
-    - ansible_ssh_private_key_file: ~/.ssh/ccc-group17.pem
-    - ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+# - hosts: masternode
+#   vars_files:
+#     - host_vars/config_vars.yaml
+#   gather_facts: true
+#   vars:
+#     - ansible_user: ubuntu
+#     - ansible_ssh_private_key_file: ~/.ssh/ccc-group17.pem
+#     - ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
   
-  roles:
-    - role: setup-couchdb-cluster
+#   roles:
+#     - role: setup-couchdb-cluster

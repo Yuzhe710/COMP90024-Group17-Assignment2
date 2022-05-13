@@ -32,4 +32,5 @@
       COUCHDB_USER: "{{ couchdb_user }}"
       COUCHDB_PASSWORD: "{{ couchdb_password }}"
       COUCHDB_SECRET: "{{ couchdb_cookie }}"
+      ERL_FLAGS: "-setcookie {{ couchdb_cookie }} -name couchdb@{{ ansible_host }}"
     container_default_behavior: no_defaults
