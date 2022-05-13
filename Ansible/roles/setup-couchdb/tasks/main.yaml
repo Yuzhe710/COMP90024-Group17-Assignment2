@@ -29,6 +29,6 @@
       - 4369:4369
       - 9100-9200:9100-9200
     env:
-      - COUCHDB_USER: {{ couchdb_user }}
-      - COUCHDB_PASSWORD: {{ couchdb_password }}
-      - COUCHDB_SECRET: {{ couchdb_cookie }}
+      - COUCHDB_USER: "{{ couchdb_user }}"
+      - COUCHDB_PASSWORD: "{{ couchdb_password }}"
+      - COUCHDB_SECRET: "{{ couchdb_cookie }}"
