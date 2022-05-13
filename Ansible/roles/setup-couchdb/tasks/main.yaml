@@ -32,3 +32,4 @@
       COUCHDB_USER: "{{ couchdb_user }}"
       COUCHDB_PASSWORD: "{{ couchdb_password }}"
       COUCHDB_SECRET: "{{ couchdb_cookie }}"
+    container_default_behavior: no_defaults
