@@ -10,3 +10,15 @@
     - role: create-security-group
     - role: create-instance
     # - role: openstack-volume-snapshot
+
+- host: all 
+  vars_files:
+    - host_vars/config_vars.yaml
+  gather_facts: true
+  vars: 
+    - ansible_user: ubuntu
+    - ansible_ssh_private_key_file: ~/.ssh/ccc-group17.pem
+    - ansible_ssh_common-args: '-o StrictHostKeyChecking=no'
+
+  roles:
+    - role: setup-docker
