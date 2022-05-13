@@ -28,10 +28,18 @@ volumes:
     vol_size: 100
     device: /dev/vdb
     mountpoint: /data
-#   - vol_name: instance-2-vol
-#     vol_size: 10
-#   - vol_name: instance-3-vol
-#     vol_size: 10
+  - vol_name: instance-2-vol
+    vol_size: 100
+    device: /dev/vdb
+    mountpoint: /data
+  - vol_name: instance-3-vol
+    vol_size: 100
+    device: /dev/vdb
+    mountpoint: /data    
+  - vol_name: instance-4-vol
+    vol_size: 100
+    device: /dev/vdb
+    mountpoint: /data   
 
 # Security group
 security_groups:
@@ -71,5 +79,12 @@ instances:
   - name: instance-1
     instance_flavor: uom.mse.1c4g
     volumes: ['instance-1-vol']
-  # - name: instance-2
-  #   volumes: []
+  - name: instance-2
+    instance_flavor: uom.mse.2c9g
+    volumes: ['instance-2-vol']
+  - name: instance-3
+    instance_flavor: uom.mse.2c9g
+    volumes: ['instance-3-vol']
+  - name: instance-4
+    instance_flavor: uom.mse.2c9g
+    volumes: ['instance-4-vol']
