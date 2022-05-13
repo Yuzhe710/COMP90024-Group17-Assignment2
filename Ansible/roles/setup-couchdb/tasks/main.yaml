@@ -1,0 +1,34 @@
+# ====================================
+# COMP90024 Cluster and Cloud Computing
+# Group 17 - Assignment 2
+# Xunye Tian 1021181
+# Kechen Zhao 957398
+# Yuzhe Jie 1189869
+# Qingyang Feng 980940
+# Wentian Ding 1048673
+# Last Updated: 2022-05-14
+# Description: setup couchdb docker container on instance
+# ====================================
+
+---
+
+- name: Pull docker image of couchdb
+  become: yes
+  community.docker.docker_image: 
+    name: "{{couchdb_image}}"
+    source: pull
+
+- name: Create and start a couchdb container
+  become: yes
+  community.docker.docker_container:
+    name: "couchdb{{ansible_host}}"
+    image: "{{couchdb_image}}"
+    state: started
+    ports: 
+      - 5984:5984
+      - 4369:4369
+      - 9100-9200:9100-9200
+    env:
+      - COUCHDB_USER: {{couchdb_user}}
+      - COUCHDB_PASSWORD: {{couchdb_password}}
+      - COUCHDB_SECRET: {{couchdb_cookie}}
