@@ -1,0 +1,90 @@
+# ====================================
+# COMP90024 Cluster and Cloud Computing
+# Group 17 - Assignment 2
+# Xunye Tian 1021181
+# Kechen Zhao 957398
+# Yuzhe Jie 1189869
+# Qingyang Feng 980940
+# Wentian Ding 1048673
+# Last Updated: 2022-05-12
+# Description: config vars for ansible playbooks
+# ====================================
+
+# Common vars
+availability_zone: melbourne-qh2-uom
+instance_image: 356ff1ed-5960-4ac2-96a1-0c0198e6a999
+instance_key_name: ccc-group17
+
+# couchdb vars
+couchdb_image: ibmcom/couchdb3:3.2.1
+couchdb_user: admin
+couchdb_password: admin
+couchdb_cookie: 'a192aeb9904e6590849337933b000c99'
+couchdb_port: 5984
+
+# Volume
+volumes:
+  - vol_name: instance-1-vol
+    vol_size: 100
+    device: /dev/vdb
+    mountpoint: /data
+  - vol_name: instance-2-vol
+    vol_size: 100
+    device: /dev/vdb
+    mountpoint: /data
+  - vol_name: instance-3-vol
+    vol_size: 100
+    device: /dev/vdb
+    mountpoint: /data    
+  - vol_name: instance-4-vol
+    vol_size: 100
+    device: /dev/vdb
+    mountpoint: /data   
+
+# Security group
+security_groups:
+  - name: inst_ssh
+    description: "Instance security group for SSH access"
+    protocol: tcp
+    port_range_min: 22
+    port_range_max: 22
+    remote_ip_prefix: 0.0.0.0/0
+  - name: inst_http
+    description: "Instance security group for HTTP"
+    protocol: tcp
+    port_range_min: 80
+    port_range_max: 80
+    remote_ip_prefix: 0.0.0.0/0
+  - name: inst_couchdb
+    description: "Instance security group for CouchDB access"
+    protocol: tcp
+    port_range_min: 5984
+    port_range_max: 5984
+    remote_ip_prefix: 0.0.0.0/0
+  - name: inst_erlang
+    description: "Instance security group for CouchDB clustered nodes speak to each other"
+    protocol: tcp
+    port_range_min: 4369
+    port_range_max: 4369
+    remote_ip_prefix: 0.0.0.0/0
+  - name: inst_erlang_app
+    description: "Instance security group to force an Erlang application to use specific port range"
+    protocol: tcp
+    port_range_min: 9100
+    port_range_max: 9200
+    remote_ip_prefix: 0.0.0.0/0
+
+# Instance
+instances:
+  - name: instance-1
+    instance_flavor: uom.mse.1c4g
+    volumes: ['instance-1-vol']
+  - name: instance-2
+    instance_flavor: uom.mse.2c9g
+    volumes: ['instance-2-vol']
+  - name: instance-3
+    instance_flavor: uom.mse.2c9g
+    volumes: ['instance-3-vol']
+  - name: instance-4
+    instance_flavor: uom.mse.2c9g
+    volumes: ['instance-4-vol']

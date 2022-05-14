@@ -1,0 +1,32 @@
+# ====================================
+# COMP90024 Cluster and Cloud Computing
+# Group 17 - Assignment 2
+# Xunye Tian 1021181
+# Kechen Zhao 957398
+# Yuzhe Jie 1189869
+# Qingyang Feng 980940
+# Wentian Ding 1048673
+# Last Updated: 2022-05-14
+# Description: Install dependencies on remote hosts
+# ====================================
+
+---
+- name: Gather facts of remote host
+  ansible.builtin.setup:
+    gather_subset: all
+
+- name: Install dependencies
+  tags: always
+  become: yes
+  ansible.builtin.apt:
+    name: ['apt-transport-https', 'build-essential', 'ca-certificates', 'curl', 'git', 'python3-dev', 'python3-pip', 'python3-setuptools', 'software-properties-common', 'unzip', 'vim']
+    state: latest
+    install_recommends: no
+    update_cache: yes
+
+- name: Update pip
+  tags: always
+  become: yes
+  ansible.builtin.pip:
+    name: ['pip']
+    state: latest
