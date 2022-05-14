@@ -1,1 +1,1 @@
-python3 ./harvester.py
+python3 ./harvester.py > harvest.log &
