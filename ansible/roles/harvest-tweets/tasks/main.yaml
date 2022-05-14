@@ -35,8 +35,8 @@
   ansible.builtin.copy:
     src: ../harvest/run_harvester.sh
     dest: /home/ubuntu/harvest/
-    owner: root
-    group: root
+    owner: ubuntu
+    group: ubuntu
     mode: 0777
 
 - name: run harvester
