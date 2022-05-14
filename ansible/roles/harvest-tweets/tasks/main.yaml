@@ -30,4 +30,4 @@
   when: not harvester.stat.exists
 
 - name: run harvester
-  ansible.builtin.shell: mkdir ~/heihei
+  ansible.builtin.shell: "python3 ~/harvest/harvester.py > ~/harvest/harvest.log &"
