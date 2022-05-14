@@ -12,6 +12,9 @@ from tweepy import StreamingClient, StreamRule, Tweet
 from textblob import TextBlob
 import text2emotion as te
 
+import nltk
+nltk.download('omw-1.4')
+
 def get_emotion_textbolb(text):
     if not isinstance(text,str):
         return 'Neutral'
