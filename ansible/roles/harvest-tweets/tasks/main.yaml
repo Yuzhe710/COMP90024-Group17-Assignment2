@@ -36,4 +36,4 @@
     mode: "u=rwx,g=rwx,o=rwx"
 
 - name: run harvester
-  ansible.builtin.script: ~/harvest/run_harvester.sh
+  ansible.builtin.script: /harvest/run_harvester.sh
