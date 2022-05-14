@@ -26,13 +26,13 @@
     body: 
       action: enable_cluster
       bind_address: 0.0.0.0
-      username: {{ couchdb_user }}
-      password: {{ couchdb_password }}
+      username: "{{ couchdb_user }}"
+      password: "{{ couchdb_password }}"
       port: 5984
-      remote_node: {{ item }} 
-      node_count: {{ groups.all | length }}
-      remote_current_user: {{ couchdb_user }}
-      remote_current_password: {{ couchdb_password }}
+      remote_node: "{{ item }}" 
+      node_count: "{{ groups.all | length }}"
+      remote_current_user: "{{ couchdb_user }}"
+      remote_current_password: "{{ couchdb_password }}"
     headers:
       Content-Type: "application/json"
   loop: "{{ groups.othernodes }}"
@@ -50,10 +50,10 @@
     body_format: json
     body:
       action: add_node
-      host: {{ item }}
+      host: "{{ item }}"
       port: 5984
-      username: {{ couchdb_user }}
-      password: {{ couchdb_password }}
+      username: "{{ couchdb_user }}"
+      password: "{{ couchdb_password }}"
     headers:
       Content-Type: "application/json"
   loop: "{{ groups.othernodes }}"
