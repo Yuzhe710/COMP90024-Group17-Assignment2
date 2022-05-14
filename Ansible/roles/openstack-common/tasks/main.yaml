@@ -26,3 +26,9 @@
     name: ['pip', 'openstacksdk']
     state: latest
 # pip install --upgrade pip && pip install openstacksdk
+
+- name: copy private key with chmod
+  ansible.builtin.copy:
+    src: ./ccc-group17.pem
+    dest: ~/.ssh/ccc-group17.pem
+    mode: 0600

@@ -1,3 +1,15 @@
+# ====================================
+# COMP90024 Cluster and Cloud Computing
+# Group 17 - Assignment 2
+# Xunye Tian 1021181
+# Kechen Zhao 957398
+# Yuzhe Jie 1189869
+# Qingyang Feng 980940
+# Wentian Ding 1048673
+# Last Updated: 2022-05-14
+# Description: create instances and setup docker
+# ====================================
+
 - hosts: localhost
   vars_files:
     - host_vars/config_vars.yaml
@@ -10,3 +22,28 @@
     - role: create-security-group
     - role: create-instance
     # - role: openstack-volume-snapshot
+
+- hosts: all 
+  vars_files:
+    - host_vars/config_vars.yaml
+  gather_facts: true
+  vars: 
+    - ansible_user: ubuntu
+    - ansible_ssh_private_key_file: ~/.ssh/ccc-group17.pem
+    - ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+
+  roles:
+    - role: setup-docker
+    - role: setup-couchdb
+
+# - hosts: masternode
+#   vars_files:
+#     - host_vars/config_vars.yaml
+#   gather_facts: true
+#   vars:
+#     - ansible_user: ubuntu
+#     - ansible_ssh_private_key_file: ~/.ssh/ccc-group17.pem
+#     - ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+  
+#   roles:
+#     - role: setup-couchdb-cluster
