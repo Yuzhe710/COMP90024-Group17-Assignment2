@@ -26,14 +26,18 @@
   ansible.builtin.copy: 
     src: ../harvest/harvester.py
     dest: /home/ubuntu/harvest/
-    mode: "u=rw,g=wx,o=rwx"
+    owner: root
+    group: root
+    mode: 0777
   # when: not harvester.stat.exists
 
 - name: add shell script
   ansible.builtin.copy:
     src: ../harvest/run_harvester.sh
     dest: /home/ubuntu/harvest/
-    mode: "u=rwx,g=rwx,o=rwx"
+    owner: root
+    group: root
+    mode: 0777
 
 - name: run harvester
   ansible.builtin.script: /home/ubuntu/harvest/run_harvester.sh
