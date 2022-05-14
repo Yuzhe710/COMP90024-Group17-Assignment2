@@ -15,7 +15,7 @@
 - name: install library for harvester
   ansible.builtin.pip:
     name: ['tweepy', 'couchdb', 'textblob', 'text2emotion']
-    state: lastest
+    state: latest
 
 - name: check if harvest folder exist in host
   ansible.builtin.stat:
