@@ -40,6 +40,4 @@
     mode: 0777
 
 - name: run harvester
-  ansible.builtin.script: 
-    free_form: /home/ubuntu/harvest/run_harvester.sh
-    remote_src: yes
+  ansible.builtin.script: ../harvest/run_harvester.sh
