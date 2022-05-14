@@ -13,27 +13,8 @@ from tweepy import StreamingClient, StreamRule, Tweet
 from textblob import TextBlob
 import text2emotion as te
 
-
-# ## Couchdb setup ###
-# masternode='172.26.132.32'
-# user='admin'
-# passeord='admin'
-# url = 'http://'+user+':'+passeord+'@'+masternode+':5984/'
-# try:
-#     couchclient = couchdb.Server(url)
-# except:
-#     print("Cannot find CouchDB Server ... Exiting\n")
-#     print("----_Stack Trace_-----\n")
-#     raise
-
-# try:
-#     db = couchclient['twitter']
-#     print("Connected to the user database")
-# except:
-#     # db = couchclient['default']
-#     print("Connected to the default database")
-
-# count = 0
+import nltk
+nltk.download('omw-1.4')
 
 
 def get_emotion_textbolb(text):

@@ -1,0 +1,33 @@
+# ====================================
+# COMP90024 Cluster and Cloud Computing
+# Group 17 - Assignment 2
+# Xunye Tian 1021181
+# Kechen Zhao 957398
+# Yuzhe Jie 1189869
+# Qingyang Feng 980940
+# Wentian Ding 1048673
+# Last Updated: 2022-05-14
+# Description: deploy the app to harvest streaming tweets data
+# ====================================
+
+---
+
+- name: install library for harvester
+  ansible.builtin.pip:
+    name: ['tweepy', 'couchdb', 'textblob', 'text2emotion', 'nltk']
+    state: latest
+
+- name: check if harvest folder exist in host
+  ansible.builtin.stat:
+    path: "~/harvest"
+  register: harvester
+
+- name: add harvester into harvest directory if not exist
+  ansible.builtin.copy: 
+    src: ../harvest/harvester.py
+    dest: ~/harvest/
+    mode: "u=rw,g=wx,o=rwx"
+  when: not harvester.stat.exists
+
+- name: run harvester
+  ansible.builtin.shell: cd ~/harvest; python3 ./harvester.py
