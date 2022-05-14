@@ -4,6 +4,7 @@
 ################ And save it to couchdb on MRC  ################################
 ################################################################################
 
+from typing import final
 import tweepy
 import couchdb
 import time
@@ -33,6 +34,7 @@ import text2emotion as te
 #     print("Connected to the default database")
 
 # count = 0
+
 
 def get_emotion_textbolb(text):
     if not isinstance(text,str):
