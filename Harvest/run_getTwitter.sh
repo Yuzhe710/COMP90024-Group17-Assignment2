@@ -1,1 +1,1 @@
-python3 ./getTwitter.py
+python3 ./harvester.py
