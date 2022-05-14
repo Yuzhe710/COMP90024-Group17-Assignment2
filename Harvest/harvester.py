@@ -4,6 +4,7 @@
 ################ And save it to couchdb on MRC  ################################
 ################################################################################
 
+from typing import final
 import tweepy
 import couchdb
 import time
@@ -14,6 +15,7 @@ import text2emotion as te
 
 import nltk
 nltk.download('omw-1.4')
+
 
 def get_emotion_textbolb(text):
     if not isinstance(text,str):
