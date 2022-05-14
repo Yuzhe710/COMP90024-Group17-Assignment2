@@ -19,21 +19,21 @@
 
 - name: check if harvest folder exist in host
   ansible.builtin.stat:
-    path: "~/harvest"
+    path: "/home/ubuntu/harvest"
   register: harvester
 
 - name: add harvester into harvest directory if not exist
   ansible.builtin.copy: 
     src: ../harvest/harvester.py
-    dest: ~/harvest/
+    dest: /home/ubuntu/harvest/
     mode: "u=rw,g=wx,o=rwx"
   # when: not harvester.stat.exists
 
 - name: add shell script
   ansible.builtin.copy:
     src: ../harvest/run_harvester.sh
-    dest: ~/harvest/
+    dest: /home/ubuntu/harvest/
     mode: "u=rwx,g=rwx,o=rwx"
 
 - name: run harvester
-  ansible.builtin.script: /harvest/run_harvester.sh
+  ansible.builtin.script: /home/ubuntu/harvest/run_harvester.sh
