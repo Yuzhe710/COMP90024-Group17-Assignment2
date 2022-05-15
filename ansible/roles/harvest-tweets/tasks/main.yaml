@@ -76,4 +76,4 @@
 #   when: not harvester.stat.exists
 
 - name: run harvester
-  ansible.builtin.command: cd /home/ubuntu/harvest; python3 ./harvester.py #> harvest.log &
+  ansible.builtin.command: python3 /home/ubuntu/harvest/harvester.py #> harvest.log &
