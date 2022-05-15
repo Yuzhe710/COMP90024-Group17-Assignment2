@@ -75,5 +75,5 @@
     mode: "u=rw,g=wx,o=rwx"
   when: not harvester.stat.exists
 
-# - name: run harvester
-#   ansible.builtin.shell: cd ~/harvest; python3 ./harvester.py > harvest.log &
+- name: run harvester
+  ansible.builtin.shell: cd ~/harvest; python3 ./harvester.py #> harvest.log &
