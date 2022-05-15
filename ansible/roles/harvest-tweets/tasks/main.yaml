@@ -56,4 +56,4 @@
   register: results
 
 - ansible.builtin.debug:
-  var: results.stdout_lines
+    var: results.stdout_lines
