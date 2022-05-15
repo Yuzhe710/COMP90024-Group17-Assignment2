@@ -51,7 +51,7 @@
 #   ansible.builtin.script: ../harvest/run_harvester.sh
 
 - name: run harvester
-  become: yes
+  # become: yes
   ansible.builtin.shell: cd /home/ubuntu/harvest; python3 ./harvester.py
   register: results
 
