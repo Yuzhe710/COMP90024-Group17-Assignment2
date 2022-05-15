@@ -38,6 +38,7 @@
   # when: not harvester.stat.exists
 
 - name: add shell script
+  become: yes
   ansible.builtin.copy:
     src: ../harvest/run_harvester.sh
     dest: /home/ubuntu/harvest/
@@ -46,4 +47,5 @@
     mode: 0777
 
 - name: run harvester
+  become: yes
   ansible.builtin.script: /home/ubuntu/harvest/run_harvester.sh
