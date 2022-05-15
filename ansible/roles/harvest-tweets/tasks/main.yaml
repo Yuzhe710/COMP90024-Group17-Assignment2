@@ -37,15 +37,21 @@
     mode: 0777
   # when: not harvester.stat.exists
 
-- name: add shell script
-  become: yes
-  ansible.builtin.copy:
-    src: ../harvest/run_harvester.sh
-    dest: /home/ubuntu/harvest/
-    owner: ubuntu
-    group: ubuntu
-    mode: 0777
+# - name: add shell script
+#   become: yes
+#   ansible.builtin.copy:
+#     src: ../harvest/run_harvester.sh
+#     dest: /home/ubuntu/harvest/
+#     owner: ubuntu
+#     group: ubuntu
+#     mode: 0777
+
+# - name: run harvester
+#   become: yes
+#   ansible.builtin.script: ../harvest/run_harvester.sh
 
 - name: run harvester
   become: yes
-  ansible.builtin.script: ../harvest/run_harvester.sh
+  ansible.builtin.shell:
+    cmd: python3 harvester.py
+    chdir: /home/ubuntu/harvest/
