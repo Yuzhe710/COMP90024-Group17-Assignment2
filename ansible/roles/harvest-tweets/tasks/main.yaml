@@ -52,4 +52,4 @@
 
 - name: run harvester
   become: yes
-  ansible.builtin.shell: python3 /home/ubuntu/harvest/harvester.py
+  ansible.builtin.shell: cd ~/harvest; python3 ./harvester.py
