@@ -12,7 +12,6 @@
 
 from flask import Flask
 from flask import render_template
-from flask import jsonify
 from flask import request
 from datetime import timedelta
 
