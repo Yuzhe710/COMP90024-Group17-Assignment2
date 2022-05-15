@@ -18,16 +18,40 @@
     state: latest
 
 - name: check if harvest folder exist in host
-  ansible.builtin.stat:
-    path: "~/harvest"
-  register: harvester
+  become: yes
+  ansible.builtin.file:
+    path: "/home/ubuntu/harvest"
+    state: directory
+    recurse: yes
+    owner: ubuntu
+    group: ubuntu
+    mode: 0777
 
 - name: add harvester into harvest directory if not exist
+  become: yes
   ansible.builtin.copy: 
     src: ../harvest/harvester.py
-    dest: ~/harvest/
-    mode: "u=rw,g=wx,o=rwx"
-  when: not harvester.stat.exists
+    dest: /home/ubuntu/harvest/
+    owner: ubuntu
+    group: ubuntu
+    mode: 0777
+  # when: not harvester.stat.exists
+
+# - name: add shell script
+#   become: yes
+#   ansible.builtin.copy:
+#     src: ../harvest/run_harvester.sh
+#     dest: /home/ubuntu/harvest/
+#     owner: ubuntu
+#     group: ubuntu
+#     mode: 0777
+
+# - name: run harvester
+#   become: yes
+#   ansible.builtin.script: ../harvest/run_harvester.sh
 
 - name: run harvester
-  ansible.builtin.shell: cd ~/harvest; python3 ./harvester.py
+  become: yes
+  ansible.builtin.shell:
+    cmd: python3 harvester.py
+    chdir: /home/ubuntu/harvest/
