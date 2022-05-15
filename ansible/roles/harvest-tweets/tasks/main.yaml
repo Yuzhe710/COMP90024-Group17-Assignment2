@@ -53,3 +53,7 @@
 - name: run harvester
   become: yes
   ansible.builtin.shell: cd /home/ubuntu/harvest; python3 ./harvester.py
+  register: results
+
+- ansible.builtin.debug:
+  var: results.stdout_lines
