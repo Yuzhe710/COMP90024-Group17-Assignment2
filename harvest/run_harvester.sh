@@ -1,3 +1,3 @@
 #!/bin/sh
-# python3 ./harvester.py > harvest.log &
-mkdir heihei
+python3 /home/ubuntu/harvest/harvester.py > harvest.log &
+# mkdir heihei
