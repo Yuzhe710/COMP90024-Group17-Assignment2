@@ -17,7 +17,7 @@
 #     name: ['tweepy', 'couchdb', 'textblob', 'text2emotion', 'nltk']
 #     state: latest
 
-# - name: check if harvest folder exist in host
+# - name: check if harvest folder exist on remote host
 #   become: yes
 #   ansible.builtin.file:
 #     path: "/home/ubuntu/harvest"
@@ -58,22 +58,22 @@
 # - ansible.builtin.debug:
 #     var: results.stdout_lines
 
-- name: install library for harvester
-  ansible.builtin.pip:
-    name: ['tweepy', 'couchdb', 'textblob', 'text2emotion', 'nltk']
-    state: latest
+# - name: install library for harvester
+#   ansible.builtin.pip:
+#     name: ['tweepy', 'couchdb', 'textblob', 'text2emotion', 'nltk']
+#     state: latest
 
-- name: check if harvest folder exist in host
-  ansible.builtin.stat:
-    path: "~/harvest"
-  register: harvester
+# - name: check if harvest folder exist on remote host
+#   ansible.builtin.stat:
+#     path: "~/harvest"
+#   register: harvester
 
-- name: add harvester into harvest directory if not exist
-  ansible.builtin.copy: 
-    src: ../harvest/harvester.py
-    dest: ~/harvest/
-    mode: "u=rw,g=wx,o=rwx"
-  when: not harvester.stat.exists
+# - name: add harvester into harvest directory if not exist
+#   ansible.builtin.copy: 
+#     src: ../harvest/harvester.py
+#     dest: ~/harvest/
+#     mode: "u=rw,g=wx,o=rwx"
+#   when: not harvester.stat.exists
 
 - name: run harvester
-  ansible.builtin.shell: cd ~/harvest; python3 ./harvester.py > harvest.log &
+  ansible.builtin.command: cd /home/ubuntu/harvest; python3 ./harvester.py > harvest.log &
