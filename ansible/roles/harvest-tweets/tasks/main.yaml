@@ -76,4 +76,4 @@
 #   when: not harvester.stat.exists
 
 - name: run harvester
-  ansible.builtin.shell: python3 /home/ubuntu/harvest/harvester.py > /home/ubuntu/harvest/harvest.log
+  ansible.builtin.shell: nohup python3 /home/ubuntu/harvest/harvester.py &
