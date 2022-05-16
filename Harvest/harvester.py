@@ -83,7 +83,7 @@ if __name__ == "__main__":
 
     # bearer_token='AAAAAAAAAAAAAAAAAAAAAFTkcQEAAAAA3O7geWIjYh6TD13FidqKmxOH8uw%3DWhtaMZvqE7YOZttckfL13e8Q48oJgID6sM3vakRdB8e8v60Kr4'
 
-    bearer_token = 'AAAAAAAAAAAAAAAAAAAAAON8cgEAAAAAEM8Qgjeq%2Bil0DE1yv8w1Ho41M58%3DwNXlv9uigqa71ioufsWz3FqQnALuExda3XRTAiGDH5n8qSO5Kh'
+    bearer_token = 'AAAAAAAAAAAAAAAAAAAAAFqlcgEAAAAAyOMIGkZ%2FeWhdhqWbJTHae5ygb9I%3DSyrvmnUzmf6YCM9KH1CtA1WrTrUob8QkA6lMnK09RbZzZQoRo4'
 
     ## Couchdb setup ###
     masternode='172.26.132.32'

@@ -55,35 +55,6 @@ map_function_textblob_sentiment="""function (doc) {
 }
 """
 
-# reduce_function_textblob_sentiment="""function(keys, values, rereduce) {
-
-#     if (rereduce) {
-#       return{
-#       'sum': values.reduce(function(a, b) { return a + b.sum }, 0),
-#       'count': values.reduce(function(a, b) { return a + b.count }, 0),
-#       'average':values.reduce(function(a, b) { return a + b.sum }, 0)/values.reduce(function(a, b) { return a + b.count }, 0)
-#       }
-
-#     } else {
-#         return {
-#             'sum': sum(values),
-#             'min': Math.min.apply(null, values),
-#             'max': Math.max.apply(null, values),
-#             'count': values.length,
-#             'sumsqr': (function() {
-#             var sumsqr = 0;
-
-#             values.forEach(function (value) {
-#                 sumsqr += value * value;
-#             });
-
-#             return sumsqr;
-#             })(),
-#         }
-#     }
-# }
-# """
-
 reduce_function_textblob_sentiment ="""function(keys, values, rereduce) {
     if (rereduce) {
         return sum(values)
