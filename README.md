@@ -8,4 +8,4 @@
 * [Wentian Ding - 1048673](https://github.com/dinggggggg)
 
 ## Goal of this Project
-Harvest tweets data from Melbourne, Australia, and analyse people's attitude towards house pricing related to "balabala".
+Harvest tweets data from Melbourne, Australia, and analyse people's attitude towards house pricing together with AURIN data and historical twitter data.
