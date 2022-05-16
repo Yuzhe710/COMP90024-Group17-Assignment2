@@ -14,7 +14,7 @@
 
 - name: install library for flask app
   ansible.builtin.pip:
-    name: ['flask', 'couchdb', 'numpy', 'pandas', 'shapely', 'matplotlib', 'wordcloud', 'geopandas']
+    name: ['flask', 'couchdb', 'numpy', 'pandas', 'shapely', 'matplotlib', 'wordcloud', 'geopandas', 'gunicorn']
     state: latest
 
 - name: check if web_app folder exist on remote host
@@ -29,5 +29,5 @@
     mode: "u=rw,g=wx,o=rwx"
   when: not flask.stat.exists
 
-# - name: run web app
-#   ansible.builtin.shell: nohup python3 /home/ubuntu/harvest/harvester.py &
+- name: run web app
+  ansible.builtin.shell: cd web_app; gunicorn --workers=4 -D app:app -b {{ ansible_host }}:5000
