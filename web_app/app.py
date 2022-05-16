@@ -40,8 +40,6 @@ def general():
     return render_template('general.html')
 
 # map
-
-
 @app.route("/region.html")
 def region():
     # db_historial_house_data 4 images
