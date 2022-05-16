@@ -156,7 +156,7 @@ ax[2].set_ylabel('Percentage of Negative Tweets (%)', fontsize = 12)
 ax[2].set_xlabel('Average Median House Price (Million)', fontsize = 12)
 ax[2].set_ylim(5, 25)
 fig.suptitle('Correlation Between House Price and Twitter Emotions', fontsize = 20)
-plt.savefig('hp_emotion.png')
+plt.savefig('./static/images/hp_emotion.png')
 
 # mean income vs. pos percentage
 mean_income['avg_mean_income'] = (mean_income.mean_income_2014.values.astype(float) +
@@ -193,7 +193,7 @@ ax[2].set_ylabel('Percentage of Negative Tweets (%)', fontsize = 12)
 ax[2].set_xlabel('Average Mean Income (Thousand)', fontsize = 12)
 ax[2].set_ylim(0, 20)
 fig.suptitle('Correlation Between Income and Twitter Emotions', fontsize = 20)
-plt.savefig('income_emotion.png')
+plt.savefig('./static/images/income_emotion.png')
 
 # population density vs. pos percentage
 pop_density['avg_pop_den'] = (pop_density.population_den_2014_personkm2.values.astype(float) +
@@ -229,4 +229,4 @@ ax[2].set_ylabel('Percentage of Negative Tweets (%)', fontsize = 12)
 ax[2].set_xlabel('Average Population Density (Thousand person / $km^2$)', fontsize = 12)
 ax[2].set_ylim(5, 25)
 fig.suptitle('Correlation Between Population Density and Twitter Emotions', fontsize = 20)
-plt.savefig('popDen_emotion.png')
+plt.savefig('./static/images/popDen_emotion.png')
