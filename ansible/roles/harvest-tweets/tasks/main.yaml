@@ -12,68 +12,22 @@
 
 ---
 
-# - name: install library for harvester
-#   ansible.builtin.pip:
-#     name: ['tweepy', 'couchdb', 'textblob', 'text2emotion', 'nltk']
-#     state: latest
+- name: install library for harvester
+  ansible.builtin.pip:
+    name: ['tweepy', 'couchdb', 'textblob', 'text2emotion', 'nltk']
+    state: latest
 
-# - name: check if harvest folder exist on remote host
-#   become: yes
-#   ansible.builtin.file:
-#     path: "/home/ubuntu/harvest"
-#     state: directory
-#     recurse: yes
-#     owner: ubuntu
-#     group: ubuntu
-#     mode: 0777
+- name: check if harvest folder exist on remote host
+  ansible.builtin.stat:
+    path: "~/harvest"
+  register: harvester
 
-# - name: add harvester into harvest directory if not exist
-#   become: yes
-#   ansible.builtin.copy: 
-#     src: ../harvest/harvester.py
-#     dest: /home/ubuntu/harvest/
-#     owner: ubuntu
-#     group: ubuntu
-#     mode: 0777
-  # when: not harvester.stat.exists
-
-# - name: add shell script
-#   become: yes
-#   ansible.builtin.copy:
-#     src: ../harvest/run_harvester.sh
-#     dest: /home/ubuntu/harvest/
-#     owner: ubuntu
-#     group: ubuntu
-#     mode: 0777
-
-# - name: run harvester
-#   become: yes
-#   ansible.builtin.script: ../harvest/run_harvester.sh
-
-# - name: run harvester
-#   # become: yes
-#   ansible.builtin.shell: cd /home/ubuntu/harvest; python3 ./harvester.py
-#   register: results
-
-# - ansible.builtin.debug:
-#     var: results.stdout_lines
-
-# - name: install library for harvester
-#   ansible.builtin.pip:
-#     name: ['tweepy', 'couchdb', 'textblob', 'text2emotion', 'nltk']
-#     state: latest
-
-# - name: check if harvest folder exist on remote host
-#   ansible.builtin.stat:
-#     path: "~/harvest"
-#   register: harvester
-
-# - name: add harvester into harvest directory if not exist
-#   ansible.builtin.copy: 
-#     src: ../harvest/harvester.py
-#     dest: ~/harvest/
-#     mode: "u=rw,g=wx,o=rwx"
-#   when: not harvester.stat.exists
+- name: add harvester into harvest directory if not exist
+  ansible.builtin.copy: 
+    src: ../harvest/harvester.py
+    dest: ~/harvest/
+    mode: "u=rw,g=wx,o=rwx"
+  when: not harvester.stat.exists
 
 - name: run harvester
   ansible.builtin.shell: nohup python3 /home/ubuntu/harvest/harvester.py &
