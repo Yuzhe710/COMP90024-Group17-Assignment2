@@ -1,0 +1,33 @@
+# ====================================
+# COMP90024 Cluster and Cloud Computing
+# Group 17 - Assignment 2
+# Xunye Tian 1021181
+# Kechen Zhao 957398
+# Yuzhe Jie 1189869
+# Qingyang Feng 980940
+# Wentian Ding 1048673
+# Last Updated: 2022-05-14
+# Description: deploy the flask app to visualize data
+# ====================================
+
+---
+
+- name: install library for flask app
+  ansible.builtin.pip:
+    name: ['flask', 'couchdb', 'numpy', 'pandas', 'shapely', 'matplotlib', 'wordcloud', 'geopandas']
+    state: latest
+
+- name: check if web_app folder exist on remote host
+  ansible.builtin.stat:
+    path: "~/web_app"
+  register: flask
+
+- name: add web_app into home directory if not exist
+  ansible.builtin.copy: 
+    src: ../web_app
+    dest: ~/
+    mode: "u=rw,g=wx,o=rwx"
+  when: not flask.stat.exists
+
+# - name: run web app
+#   ansible.builtin.shell: nohup python3 /home/ubuntu/harvest/harvester.py &
