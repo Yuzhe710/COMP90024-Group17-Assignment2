@@ -97,18 +97,16 @@ def main():
         plt.bar(area_agg.index, area_agg['mean income'], color = 'pink', width = 0.4)
         plt.plot(area_agg['mean income'], marker = '*', color = 'orange', ms = 10)
         plt.title('Mean income of: ' + area)
-        f1.savefig("Mean_income_of:_" + area, bbox_inches='tight', dpi=600)
+        f1.savefig("Mean_income_of_" + ''.join(e for e in area if e.isalnum()), bbox_inches='tight', dpi=600)
 
         f2 = plt.figure()
         plt.bar(area_agg.index, area_agg['median house price'], color = 'pink', width = 0.4)
         plt.plot(area_agg['median house price'], marker = '*', color = 'orange', ms = 10)
         plt.title('Median House Price of: ' + area)
-        f2.savefig("Median_House_Price_of:_" + area, bbox_inches='tight', dpi=600)
+        f2.savefig("Median_House_Price_of_" + ''.join(e for e in area if e.isalnum()), bbox_inches='tight', dpi=600)
 
         f3 = plt.figure()
         plt.bar(area_agg.index, area_agg['population'], color = 'pink', width = 0.4)
         plt.plot(area_agg['population'], marker = '*', color = 'orange', ms = 10)
         plt.title('Population of: ' + area)
-        f3.savefig("Population_of:_" + area, bbox_inches='tight', dpi=600)
-
-    #     f.savefig("Trend_analysis_of:_" + area, bbox_inches='tight', dpi=600)
+        f3.savefig("Population_of_" + ''.join(e for e in area if e.isalnum()), bbox_inches='tight', dpi=600)
