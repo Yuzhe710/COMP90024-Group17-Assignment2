@@ -30,4 +30,6 @@
   when: not flask.stat.exists
 
 - name: run web app
-  ansible.builtin.shell: cd web_app; gunicorn --workers=4 -D app:app -b {{ ansible_host }}:5000
+  ansible.builtin.shell: gunicorn --workers=4 -D app:app -b {{ ansible_host }}:5000
+  args:
+    chdir: /home/ubuntu/web_app/
