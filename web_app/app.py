@@ -14,6 +14,12 @@ from flask import Flask
 from flask import render_template
 from flask import request
 from datetime import timedelta
+import aurin_sentiment
+import db_aurin_data_trend
+import db_historical_house_data
+import db_stream_data
+import greater_melbourne_map
+import language
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -21,25 +27,26 @@ app.config['SEND_FILE_MAX_AGE_DEFAULT'] = timedelta(seconds = 1)
 
 # --------------------------------------------
 
-@app.route("/")
-def hello_world():
-    return "<p>Hello, World!</p>"
-
 @app.route("/main.html", methods = ['GET', 'POST'])
 def main():
     # greater_melbourne
+    greater_melbourne_map.main()
+    aurin_sentiment.main()
+    db_aurin_data_trend.main()
     return render_template('main.html')
 
 # pie chart
 @app.route("/general.html")
 def general():
     # db_stream_data 5 images
+    db_stream_data.main()
     return render_template('general.html')
 
 # map
 @app.route("/region.html")
 def region():
     # db_historial_house_data 4 images
+    db_historical_house_data.main()
     return render_template('region.html')
 
 @app.route("/house_price.html")
@@ -63,6 +70,7 @@ def population():
 @app.route("/language.html")
 def language():
     # language.py
+    language.main()
     return render_template('language.html')
 
 # --------------------------------------------
