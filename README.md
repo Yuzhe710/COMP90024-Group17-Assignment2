@@ -9,3 +9,10 @@
 
 ## Goal of this Project
 Harvest tweets data from Melbourne, Australia, and analyse people's attitude towards house pricing together with AURIN data and historical twitter data.
+
+## System Functionalities:
+1. Construction of a cloud infrastructure that support the autonomy and data analysis
+2. Develop twitter harvester that support automatic data harvest from social media
+3. Automatic Deployment of CouchDB that support data storage and process
+4. Construction of MapReduce in CouchDB that support data aggregation 
+5. Automatically render and present the analysis result on the frontend 
