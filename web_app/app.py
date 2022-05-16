@@ -27,26 +27,42 @@ def hello_world():
 
 @app.route("/main.html", methods = ['GET', 'POST'])
 def main():
+    # greater_melbourne
     return render_template('main.html')
 
-@app.route("/aboutUs.html")
-def aboutUs():
-    return render_template('aboutUs.html')
-
+# pie chart
 @app.route("/general.html")
 def general():
+    # db_stream_data 5 images
     return render_template('general.html')
+
+# map
+@app.route("/region.html")
+def region():
+    # db_historial_house_data 4 images
+    return render_template('region.html')
 
 @app.route("/house_price.html")
 def housePrice():
+    # aurin_sentiment 1/3 images 
+    # db_aurin_data_trend 3 images
     return render_template('house_price.html')
 
 @app.route("/income.html")
 def income():
+    # aurin_sentiment 1/3 images 
+    # db_aurin_data_trend 3 images
     return render_template('income.html')
 
 @app.route("/population.html")
 def population():
+    # aurin_sentiment 1/3 images 
+    # db_aurin_data_trend 3 images
     return render_template('population.html')
+
+@app.route("/language.html")
+def language():
+    # language.py
+    return render_template('language.html')
 
 # --------------------------------------------
