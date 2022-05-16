@@ -13,6 +13,7 @@
 ---
 
 - name: install library for flask app
+  become: yes
   ansible.builtin.pip:
     name: ['flask', 'couchdb', 'numpy', 'pandas', 'shapely', 'matplotlib', 'wordcloud', 'geopandas', 'gunicorn']
     state: latest
