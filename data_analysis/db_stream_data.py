@@ -6,9 +6,12 @@
 # Yuzhe Jie 1189869
 # Qingyang Feng 980940
 # Wentian Ding 1048673
-# Last Updated: 2022-05-15
-# Description: Twitter stream data processing
+# Last Updated: 2022-05-12
+# Description: Data process and plot generate for real-time stream twitter data
 # ====================================
+
+# In[3]:
+
 
 import couchdb
 import numpy as np
@@ -18,7 +21,7 @@ import matplotlib.pyplot as plt
 from wordcloud import WordCloud
 
 
-# In[78]:
+# In[4]:
 
 
 couch_client = couchdb.Server('http://admin:admin@172.26.132.32:5984/')
@@ -27,7 +30,7 @@ data = db1.view('_all_docs', include_docs=True)
 twitter = pd.DataFrame(data)
 
 
-# In[114]:
+# In[5]:
 
 
 gen_emo = []
@@ -40,7 +43,7 @@ for i in range(len(twitter)):
         top_emo.append(instance['top_emotion'])
 
 
-# In[115]:
+# In[6]:
 
 
 sentiment = pd.DataFrame()
@@ -48,7 +51,7 @@ sentiment['general_emotion'] = gen_emo
 sentiment['top_emotion'] = top_emo
 
 
-# In[116]:
+# In[7]:
 
 
 def sentiment_percentage(labels):
@@ -60,21 +63,22 @@ def sentiment_percentage(labels):
     return np.round(np.array([pos, neu, neg])/s*100, 2)
 
 
-# In[117]:
+# In[8]:
 
 
 ratio = sentiment_percentage(sentiment['general_emotion'])
 
 
-# In[118]:
+# In[9]:
 
 
 f = plt.figure()
 plt.pie(ratio, labels = ["Negative", 'Positive', 'Neutral'], autopct = '%1.1f%%')
+plt.title('Percentage of attitude in the Melbourne')
 f.savefig('Percentage_of_attitude_in_Mel', bbox_inches='tight', dpi=600)
 
 
-# In[119]:
+# In[10]:
 
 
 negative = sentiment[sentiment['general_emotion'] == "Negative"]
@@ -82,13 +86,13 @@ positive = sentiment[sentiment['general_emotion'] == "Positive"]
 neutral = sentiment[sentiment['general_emotion'] == "Neutral"]
 
 
-# In[120]:
+# In[11]:
 
 
 sentiment['top_emotion'].unique()
 
 
-# In[121]:
+# In[12]:
 
 
 def sentiment_percentage(labels):
@@ -102,16 +106,17 @@ def sentiment_percentage(labels):
     return np.round(np.array([fear, sad, happy, surprise, angry])/s*100, 2)
 
 
-# In[122]:
+# In[13]:
 
 
 all_ratio = sentiment_percentage(sentiment['top_emotion'])
 f = plt.figure()
 plt.pie(all_ratio, labels = ['Fear', 'Sad', 'Happy', 'Surprise', 'Angry'], autopct = '%1.1f%%')
+plt.title('For all attitude Percentage of top emotions in Melbourne')
 f.savefig('For_all_attitude_Percentage_of_top_emotions_in_Mel', bbox_inches='tight', dpi=600)
 
 
-# In[123]:
+# In[14]:
 
 
 neg_ratio = sentiment_percentage(negative['top_emotion'])
@@ -119,31 +124,34 @@ pos_ratio = sentiment_percentage(positive['top_emotion'])
 neu_ratio = sentiment_percentage(neutral['top_emotion'])
 
 
-# In[124]:
+# In[15]:
 
 
 f = plt.figure()
 plt.pie(neg_ratio, labels = ['Fear', 'Sad', 'Happy', 'Surprise', 'Angry'], autopct = '%1.1f%%')
+plt.title('For negative attitude Percentage of top emotions in Melbourne')
 f.savefig('For_neg_attitude_Percentage_of_top_emotions_in_Mel', bbox_inches='tight', dpi=600)
 
 
-# In[125]:
+# In[16]:
 
 
 f = plt.figure()
 plt.pie(pos_ratio, labels = ['Fear', 'Sad', 'Happy', 'Surprise', 'Angry'], autopct = '%1.1f%%')
+plt.title('For positive attitude Percentage of top emotions in Melbourne')
 f.savefig('For_pos_attitude_Percentage_of_top_emotions_in_Mel', bbox_inches='tight', dpi=600)
 
 
-# In[126]:
+# In[17]:
 
 
 f = plt.figure()
 plt.pie(neu_ratio, labels = ['Fear', 'Sad', 'Happy', 'Surprise', 'Angry'], autopct = '%1.1f%%')
+plt.title('For neutral attitude Percentage of top emotions in Melbourne')
 f.savefig('For_neu_attitude_Percentage_of_top_emotions_in_Mel', bbox_inches='tight', dpi=600)
 
 
-# In[127]:
+# In[18]:
 
 
 from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator

@@ -7,7 +7,7 @@
 # Qingyang Feng 980940
 # Wentian Ding 1048673
 # Last Updated: 2022-05-15
-# Description: Twitter historical house price data processing
+# Description: Twitter historical house price data processing and plotting of choropleths on sentiments of twitter data
 # ====================================
 
 import couchdb
@@ -80,7 +80,7 @@ def sentiment_percentage(labels):
 
 grouped_SA3 = pd.DataFrame(historic_house_price.groupby('geo_code')['label_textblob'].apply(list))
 # only keep section with more than 5 data points
-min_data_point = 5
+min_data_point = 50
 grouped_SA3= grouped_SA3[grouped_SA3['label_textblob'].map(lambda d: len(d)) > min_data_point]
 percentages = []
 for code, row in grouped_SA3.iterrows():
@@ -110,6 +110,25 @@ def plot_percentage(data, hue, cmap, title, filename):
     ax.set_title(title, fontsize=18);
     plt.savefig(filename)
 
-plot_percentage(full_data, 'pos_pctg', 'YlOrRd', 'Attitude towards House Price - Percentage of Positive Tweets', 'sentiment_cp_pos.png')
-plot_percentage(full_data, 'neu_pctg', 'Greens', 'Attitude towards House Price - Percentage of Neutral Tweets', 'sentiment_cp_neu.png')
+plot_percentage(full_data, 'pos_pctg', 'Reds', 'Attitude towards House Price - Percentage of Positive Tweets', 'sentiment_cp_pos.png')
+plot_percentage(full_data, 'neu_pctg', 'YlOrBr', 'Attitude towards House Price - Percentage of Neutral Tweets', 'sentiment_cp_neu.png')
 plot_percentage(full_data, 'neg_pctg', 'Blues', 'Attitude towards House Price - Percentage of Negative Tweets', 'sentiment_cp_neg.png')
+
+data_points = sa3_mel.merge(pd.DataFrame(historic_house_price.groupby('geo_code')['label_textblob'].count()),
+                            left_index=True, right_index=True, how='left')
+fig, ax = plt.subplots(figsize = (10,10), dpi=100)
+data_points.plot(ax=ax,
+    column='label_textblob',
+    legend=True,
+    scheme='quantiles',
+    cmap = 'Greens',
+    edgecolor = 'black',
+    linewidth=0.3,
+    missing_kwds={
+        "color": "lightgrey",
+        "label": "No data",
+    },
+);
+ax.set_axis_off();
+ax.set_title('Number of Data Points in SA3 Areas', fontsize=18);
+plt.savefig('sentiment_data_point.png')

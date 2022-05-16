@@ -7,11 +7,9 @@
 # Qingyang Feng 980940
 # Wentian Ding 1048673
 # Last Updated: 2022-05-15
-# Description: Aurin data processing
+# Description: Aurin Data process and plot generate
 # ====================================
-
-
-# In[131]:
+# In[98]:
 
 
 import couchdb
@@ -20,7 +18,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
-# In[133]:
+# In[99]:
 
 
 couch_client = couchdb.Server('http://admin:admin@172.26.132.32:5984/')
@@ -42,7 +40,7 @@ pop_density = pd.DataFrame(pop)
 
 # ## Pre-Processing
 
-# In[134]:
+# In[100]:
 
 
 mean_income = pd.DataFrame.transpose(mean_income)
@@ -52,7 +50,7 @@ mean_income.columns = mean_income.iloc[3]
 mean_income = mean_income.drop(['_id', '_rev', 'name', 'code'], 0)
 
 
-# In[135]:
+# In[101]:
 
 
 median_house_price = pd.DataFrame.transpose(median_house_price)
@@ -62,13 +60,7 @@ median_house_price.columns = median_house_price.iloc[3]
 median_house_price = median_house_price.drop(['_id', '_rev', 'name', 'code'], 0)
 
 
-# In[136]:
-
-
-median_house_price
-
-
-# In[137]:
+# In[102]:
 
 
 pop_density = pd.DataFrame.transpose(pop_density)
@@ -78,7 +70,7 @@ pop_density.columns = pop_density.iloc[3]
 pop_density = pop_density.drop(['_id', '_rev', 'name', 'code'], 0)
 
 
-# In[138]:
+# In[103]:
 
 
 total_population = pop_density.loc[['population_2014',
@@ -88,7 +80,7 @@ total_population = pop_density.loc[['population_2014',
                                     'population_2018']]
 
 
-# In[139]:
+# In[104]:
 
 
 density = pop_density.loc[['population_den_2014_personkm2',
@@ -100,7 +92,7 @@ density = pop_density.loc[['population_den_2014_personkm2',
 
 # ## Trend Analysis
 
-# In[147]:
+# In[105]:
 
 
 area = "Yarra"
@@ -108,29 +100,19 @@ area_agg = pd.DataFrame()
 area_agg['mean income'] = list(mean_income[area])
 area_agg['median house price'] = list(median_house_price[area])
 area_agg['total population'] = list(total_population[area])
-#area_agg['population density'] = list(density[area])
 area_agg.index = ['2014', '2015', '2016', '2017', '2018']
 area_agg = area_agg.astype(str).astype(float).astype(int)
 
 
-# In[148]:
+# In[106]:
 
 
-normalized_agg = (area_agg - area_agg.mean())/area_agg.std()
+plt.bar(area_agg.index, area_agg['median house price'], color = 'pink', width = 0.4)
+plt.plot(area_agg['median house price'], marker = '*', color = 'orange', ms = 10)
+plt.title('Median House Price of: ' + area)
 
 
-# In[149]:
-
-
-f = plt.figure()
-plt.plot(normalized_agg)
-plt.ylabel('Standardized Score')
-plt.xlabel('Year')
-plt.title("Trend analysis of area:" + area)
-plt.legend(list(normalized_agg.columns))
-
-
-# In[150]:
+# In[107]:
 
 
 for location in density.columns:
@@ -138,17 +120,26 @@ for location in density.columns:
     area_agg = pd.DataFrame()
     area_agg['mean income'] = list(mean_income[area])
     area_agg['median house price'] = list(median_house_price[area])
-    area_agg['total population'] = list(total_population[area])
+    area_agg['population'] = list(total_population[area])
     area_agg.index = ['2014', '2015', '2016', '2017', '2018']
     area_agg = area_agg.astype(str).astype(float).astype(int)
 
-    normalized_agg = (area_agg - area_agg.mean())/area_agg.std()
+    f1 = plt.figure()
+    plt.bar(area_agg.index, area_agg['mean income'], color = 'pink', width = 0.4)
+    plt.plot(area_agg['mean income'], marker = '*', color = 'orange', ms = 10)
+    plt.title('Mean income of: ' + area)
+    f1.savefig("Mean_income_of:_" + area, bbox_inches='tight', dpi=600)
 
-    f = plt.figure()
-    plt.plot(normalized_agg)
-    plt.ylabel('Standardized Score')
-    plt.xlabel('Year')
-    plt.title("Trend analysis of :" + area)
-    plt.legend(list(normalized_agg.columns))
+    f2 = plt.figure()
+    plt.bar(area_agg.index, area_agg['median house price'], color = 'pink', width = 0.4)
+    plt.plot(area_agg['median house price'], marker = '*', color = 'orange', ms = 10)
+    plt.title('Median House Price of: ' + area)
+    f2.savefig("Median_House_Price_of:_" + area, bbox_inches='tight', dpi=600)
 
-    f.savefig("Trend_analysis_of:_" + area, bbox_inches='tight', dpi=600)
+    f3 = plt.figure()
+    plt.bar(area_agg.index, area_agg['population'], color = 'pink', width = 0.4)
+    plt.plot(area_agg['population'], marker = '*', color = 'orange', ms = 10)
+    plt.title('Population of: ' + area)
+    f3.savefig("Population_of:_" + area, bbox_inches='tight', dpi=600)
+
+#     f.savefig("Trend_analysis_of:_" + area, bbox_inches='tight', dpi=600)
